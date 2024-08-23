@@ -1,5 +1,5 @@
 <template>
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
     <div class="container-fluid">
       <router-link class="navbar-brand" to="/">Gestion des Tâches</router-link>
       <button
@@ -18,9 +18,7 @@
           <li class="nav-item">
             <router-link to="/" class="nav-link">Projets</router-link>
           </li>
-          <li class="nav-item">
-            <router-link to="/add" class="nav-link">Ajouter Projet</router-link>
-          </li>
+          
           <li class="nav-item">
             <router-link to="/taches" class="nav-link">Tâches</router-link>
           </li> 
@@ -29,3 +27,9 @@
     </div>
   </nav>
 </template>
+
+<style scoped>
+ 
+ 
+
+</style>

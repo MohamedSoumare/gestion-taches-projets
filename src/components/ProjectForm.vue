@@ -1,24 +1,26 @@
 <template>
-  <div class="card mb-4">
-    <div class="card-header">Ajouter un Projet</div>
-    <div class="card-body">
-      <form @submit.prevent="onSubmit">
-        <div class="form-row mb-3">
-          <div class="col">
-            <label for="nom">Nom</label>
-            <input type="text" class="form-control" id="nom" v-model="nom" required />
+  <div class="container mt-5">
+    <div class="card mb-4 mt-5">
+      <div class="card-header">Ajouter un Projet</div>
+      <div class="card-body">
+        <form @submit.prevent="onSubmit">
+          <div class="form-row mb-3">
+            <div class="col">
+              <label for="nom">Nom</label>
+              <input type="text" class="form-control" id="nom" v-model="nom" required />
+            </div>
+            <div class="col">
+              <label for="debut">Date de début</label>
+              <input type="date" class="form-control" id="debut" v-model="debut" required />
+            </div>
+            <div class="col">
+              <label for="fin">Date de fin</label>
+              <input type="date" class="form-control" id="fin" v-model="fin" required />
+            </div>
           </div>
-          <div class="col">
-            <label for="debut">Date de début</label>
-            <input type="date" class="form-control" id="debut" v-model="debut" required />
-          </div>
-          <div class="col">
-            <label for="fin">Date de fin</label>
-            <input type="date" class="form-control" id="fin" v-model="fin" required />
-          </div>
-        </div>
-        <button type="submit" class="btn btn-primary">Ajouter</button>
-      </form>
+          <button type="submit" class="btn btn-primary">Ajouter</button>
+        </form>
+      </div>
     </div>
   </div>
 </template>
@@ -46,3 +48,9 @@ const onSubmit = () => {
   fin.value = "";
 };
 </script>
+
+<style scoped>
+.container {
+  margin-top: 100px; /* Ajustez la marge selon les besoins */
+}
+</style>
