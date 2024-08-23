@@ -9,7 +9,7 @@
       </div>
     </div>
     <div class="mt-3">
-      <router-link :to="{ name: 'EditProject', params: { id: project.id } }" class="btn btn-primary me-2">Modifier</router-link>
+      <!-- <router-link :to="{ name: 'EditProject', params: { id: project.id } }" class="btn btn-primary me-2">Modifier</router-link> -->
       <router-link to="/" class="btn btn-secondary">Retour à la liste</router-link>
     </div>
   </div>

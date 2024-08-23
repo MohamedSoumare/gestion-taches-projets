@@ -2,7 +2,26 @@ import { defineStore } from 'pinia';
 
 export const useGestionStore = defineStore('gestion', {
   state: () => ({
-    projets: [],
+    projets: [
+      {
+        id: 1,
+        nom: "Developement d'un appliation desktop",
+        dateDebut: "2024-08-25",
+        dateFin: "2024-09-15",
+      },
+      {
+        id: 2,
+        nom: "Developement d'une application mobile",
+        dateDebut: "2024-08-30",
+        dateFin: "2024-09-25",
+      },
+      {
+        id: 3,
+        nom: "Design ux",
+        dateDebut: "2024-09-25",
+        dateFin: "2024-11-15",
+      },
+    ],
     selected: null,
   }),
   actions: {
