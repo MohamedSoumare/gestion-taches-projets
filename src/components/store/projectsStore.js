@@ -2,29 +2,12 @@ import { defineStore } from 'pinia';
 
 export const useGestionStore = defineStore('gestion', {
   state: () => ({
-    projets: [
-      {
-        id: 1,
-        nom: "Developement d'un appliation desktop",
-        dateDebut: "2024-08-25",
-        dateFin: "2024-09-15",
-      },
-      {
-        id: 2,
-        nom: "Developement d'une application mobile",
-        dateDebut: "2024-08-30",
-        dateFin: "2024-09-25",
-      },
-      {
-        id: 3,
-        nom: "Design ux",
-        dateDebut: "2024-09-25",
-        dateFin: "2024-11-15",
-      },
-    ],
+    projets: [],
+    taches: [],
     selected: null,
   }),
   actions: {
+
     addProjet(projet) {
       this.projets.push(projet);
     },
@@ -37,13 +20,37 @@ export const useGestionStore = defineStore('gestion', {
     delProjet(id) {
       this.projets = this.projets.filter(projet => projet.id !== id);
     },
-    view(projet) {
+    viewProjet(projet) {
       this.selected = projet;
-    }
+    },
+
+    // Actions pour gérer les tâches
+    addTache(tache) {
+      this.taches.push(tache);
+    },
+    updateTache(updatedTache) {
+      const index = this.taches.findIndex(tache => tache.id === updatedTache.id);
+      if (index !== -1) {
+        this.taches[index] = updatedTache;
+      }
+    },
+    delTache(id) {
+      this.taches = this.taches.filter(tache => tache.id !== id);
+    },
+    viewTache(tache) {
+      this.selected = tache;
+    },
+
   },
   getters: {
     getProjetById: (state) => (id) => {
       return state.projets.find(projet => projet.id === id);
-    }
+    },
+    getTacheById: (state) => (id) => {
+      return state.taches.find(tache => tache.id === id);
+    },
+    getTachesByProjetId: (state) => (projetId) => {
+      return state.taches.filter(tache => tache.projet === projetId);
+    },
   },
 });

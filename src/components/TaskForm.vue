@@ -1,59 +1,77 @@
 <template>
-  <div>
-    <h1>{{ isEditing ? 'Modifier le Projet' : 'Nouveau Projet' }}</h1>
-    <form @submit.prevent="submitForm">
-      <div class="mb-3">
-        <label for="nom" class="form-label">Nom du projet</label>
-        <input v-model="form.nom" type="text" class="form-control" id="nom" required>
+  <div class="container mt-5">
+    <div class="card mb-4 mt-5">
+      <div class="card-header">{{ isEditing ? 'Modifier la Tâche' : 'Ajouter une Tâche' }}</div>
+      <div class="card-body">
+        <form @submit.prevent="onSubmit">
+          <div class="form-row mb-3">
+            <div class="col">
+              <label for="nom">Nom</label>
+              <input type="text" class="form-control" id="nom" v-model="nom" required />
+            </div>
+            <div class="col">
+              <label for="date">Date Limite</label>
+              <input type="date" class="form-control" id="date" v-model="date" required />
+            </div>
+            <div class="col">
+              <label for="projet">Projet</label>
+              <select class="form-control" id="projet" v-model="projet">
+                <option v-for="projet in projets" :key="projet.id" :value="projet.id">{{ projet.nom }}</option>
+              </select>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary">{{ isEditing ? 'Enregistrer' : 'Ajouter' }}</button>
+        </form>
       </div>
-      <div class="mb-3">
-        <label for="dateDebut" class="form-label">Date de début</label>
-        <input v-model="form.dateDebut" type="date" class="form-control" id="dateDebut" required>
-      </div>
-      <div class="mb-3">
-        <label for="dateFin" class="form-label">Date de fin</label>
-        <input v-model="form.dateFin" type="date" class="form-control" id="dateFin" required>
-      </div>
-      <button type="submit" class="btn btn-primary">{{ isEditing ? 'Mettre à jour' : 'Créer' }}</button>
-      <router-link to="/" class="btn btn-secondary ms-2">Annuler</router-link>
-    </form>
+    </div>
   </div>
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
-import { useProjectsStore } from './store/projectsStore'
+import { ref, watch } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
+import { useGestionStore } from './store/projectsStore';
 
-const route = useRoute()
-const router = useRouter()
-const store = useProjectsStore()
+const store = useGestionStore();
+const router = useRouter();
+const route = useRoute();
 
-const form = ref({
-  id: null,
-  nom: '',
-  dateDebut: '',
-  dateFin: ''
-})
+const nom = ref("");
+const date = ref("");
+const projet = ref(null);
+const isEditing = ref(false);
 
-const isEditing = computed(() => !!route.params.id)
+const projets = store.projets;
 
-onMounted(() => {
+const onSubmit = () => {
   if (isEditing.value) {
-    const project = store.projects.find(p => p.id === parseInt(route.params.id))
-    if (project) {
-      form.value = { ...project }
+    store.updateTache({
+      id: parseInt(route.params.id),
+      nom: nom.value,
+      date: date.value,
+      projet: projet.value
+    });
+  } else {
+    store.addTache({
+      id: Date.now(),
+      nom: nom.value,
+      date: date.value,
+      projet: projet.value
+    });
+  }
+
+  router.push('/tasks');
+};
+
+watch(() => route.params.id, (newId) => {
+  if (newId) {
+    const foundTache = store.getTacheById(parseInt(newId));
+    if (foundTache) {
+      nom.value = foundTache.nom;
+      date.value = foundTache.date;
+      projet.value = foundTache.projet;
+      isEditing.value = true;
     }
   }
-})
-
-const submitForm = () => {
-  if (isEditing.value) {
-    store.updateProject(form.value)
-  } else {
-    const newId = Math.max(...store.projects.map(p => p.id)) + 1
-    store.addProject({ ...form.value, id: newId })
-  }
-  router.push('/')
-}
+}, { immediate: true });
 </script>

@@ -1,30 +1,46 @@
 <template>
-    <div class="container mt-5">
-      <h2 class="text-center mb-4">Détails de la Tâche</h2>
-      <div v-if="task">
-        <p><strong>Nom:</strong> {{ task.name }}</p>
-        <p><strong>Description:</strong> {{ task.description }}</p>
-        <p><strong>Date de Début:</strong> {{ task.startDate }}</p>
-        <p><strong>Date de Fin:</strong> {{ task.endDate }}</p>
-        <p><strong>Projet:</strong> {{ task.projectName }}</p>
+  <div class="container mt-5">
+    <div v-if="tache" class="card">
+      <div class="card-header">
+        <h4>Détails de la Tâche</h4>
       </div>
-      <router-link :to="'/task/edit/' + task.id" class="btn btn-warning">Modifier</router-link>
-      <router-link to="/" class="btn btn-secondary">Retour</router-link>
+      <div class="card-body">
+        <p><strong>Nom : </strong>{{ tache.nom }}</p>
+        <p><strong>Date Limite : </strong>{{ tache.date }}</p>
+        <p><strong>Projet : </strong>{{ getProjetName(tache.projet) }}</p>
+        <router-link :to="{ path: `/tasks/edit/${tache.id}` }" class="btn btn-success">Modifier</router-link>
+        <button @click="deleteTask(tache.id)" class="btn btn-danger ml-3">Supprimer</button>
+      </div>
     </div>
-  </template>
-  
-  <script setup>
-  import { useTasksStore } from '../components/store/TasksStore.js';
-  import { onMounted } from 'vue';
-  import { useRoute } from 'vue-router';
-  
-  const tasksStore = useTasksStore();
-  const route = useRoute();
-  
-  const task = ref(null);
-  
-  onMounted(() => {
-    task.value = tasksStore.tasks.find(t => t.id === route.params.id);
-  });
-  </script>
-  
+    <div v-else class="alert alert-warning">
+      Tâche non trouvée !
+    </div>
+  </div>
+</template>
+
+<script setup>
+import { onMounted, ref } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
+import { useGestionStore } from './store/projectsStore';
+
+const store = useGestionStore();
+const route = useRoute();
+const router = useRouter();
+
+const tache = ref(null);
+
+const getProjetName = (projetId) => {
+  const projet = store.getProjetById(projetId);
+  return projet ? projet.nom : 'Inconnu';
+};
+
+const deleteTask = (id) => {
+  store.delTache(id);
+  router.push('/tasks');
+};
+
+onMounted(() => {
+  const id = parseInt(route.params.id);
+  tache.value = store.getTacheById(id);
+});
+</script>

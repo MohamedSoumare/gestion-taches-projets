@@ -15,7 +15,7 @@
         <input type="date" class="form-control" id="editFin" v-model="projet.fin" required>
       </div>
       <button type="submit" class="btn btn-primary">Enregistrer</button>
-      <router-link to="/" class="btn btn-secondary ms-2">Annuler</router-link>
+      <router-link to="/projects" class="btn btn-secondary ms-2">Annuler</router-link>
     </form>
   </div>
 </template>
@@ -42,14 +42,14 @@ watch(() => route.params.id, (newId) => {
   if (foundProjet) {
     projet.value = { ...foundProjet };
   } else {
-    router.push('/'); // Rediriger si le projet n'est pas trouvé
+    router.push('/projects');
   }
 }, { immediate: true });
 
 const updateProjet = () => {
   if (projet.value.id !== null) {
     store.updateProjet(projet.value);
-    router.push('/');
+    router.push('/projects');
   }
 };
 </script>
