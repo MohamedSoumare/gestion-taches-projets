@@ -3,13 +3,13 @@
     <h1>Détails du Projet</h1>
     <div class="card">
       <div class="card-body">
-        <h5 class="card-title">{{ project.nom }}</h5>
-        <p class="card-text">Date de début : {{ project.debut }}</p>
-        <p class="card-text">Date de fin : {{ project.fin }}</p>
+        <p class="card-title"><strong>Nom du projet :</strong> {{ project.nom }}</p>
+        <p class="card-text"><strong>Date de début :</strong> {{ project.debut }}</p>
+        <p class="card-text"><strong>Date de fin :</strong> {{ project.fin }}</p>
       </div>
     </div>
     <div class="mt-3">
-      <!-- <router-link :to="{ name: 'EditProject', params: { id: project.id } }" class="btn btn-primary me-2">Modifier</router-link> -->
+      <router-link :to="{ name: 'EditProject', params: { id: project.id } }" class="btn btn-primary me-2">Modifier</router-link>
       <router-link to="/" class="btn btn-secondary">Retour à la liste</router-link>
     </div>
   </div>

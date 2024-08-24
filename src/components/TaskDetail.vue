@@ -6,7 +6,8 @@
       </div>
       <div class="card-body">
         <p><strong>Nom : </strong>{{ tache.nom }}</p>
-        <p><strong>Date Limite : </strong>{{ tache.date }}</p>
+        <p><strong>Date Debut : </strong>{{ tache.date }}</p>
+        <p><strong>Date Fin : </strong>{{ tache.date }}</p>
         <p><strong>Projet : </strong>{{ getProjetName(tache.projet) }}</p>
         <router-link :to="{ path: `/tasks/edit/${tache.id}` }" class="btn btn-success">Modifier</router-link>
         <button @click="deleteTask(tache.id)" class="btn btn-danger ml-3">Supprimer</button>

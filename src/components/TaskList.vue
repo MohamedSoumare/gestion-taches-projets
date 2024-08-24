@@ -8,7 +8,8 @@
         <tr>
           <th>#</th>
           <th>Nom</th>
-          <th>Date Limite</th>
+          <th>Date debut</th>
+          <th>Date fin</th>
           <th>Projet</th>
           <th>Actions</th>
         </tr>
@@ -18,6 +19,8 @@
           <td>{{ index + 1 }}</td>
           <td>{{ tache.nom }}</td>
           <td>{{ tache.date }}</td>
+          <td>{{ tache.datefin }}</td>
+          <td>{{ tache.datefin}}</td>
           <td>{{ getProjetName(tache.projet) }}</td>
           <td>
             <router-link :to="{ path: `/tasks/details/${tache.id}` }" class="btn btn-info"><ion-icon name="eye"></ion-icon></router-link>

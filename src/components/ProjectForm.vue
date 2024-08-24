@@ -52,3 +52,9 @@ const onSubmit = () => {
   router.push('/projects');
 };
 </script>
+
+<style scoped>
+.container {
+  margin-top: 100px; /* Ajustez la marge selon les besoins */
+}
+</style>

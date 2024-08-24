@@ -5,11 +5,13 @@
   </div>
   <div class="form-container">
     <router-view />
+    
   </div>
   
 </template>
 
 <script setup>
+
 import Navbar from './components/Navbar.vue';
 // import ProjectForm from './components/ProjectForm.vue';
 // import TaskForm from './components/TaskForm.vue';
@@ -25,6 +27,5 @@ import Navbar from './components/Navbar.vue';
   margin-top: 120px;  
 
  }
-
 
 </style>

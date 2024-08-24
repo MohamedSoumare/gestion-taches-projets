@@ -10,8 +10,12 @@
               <input type="text" class="form-control" id="nom" v-model="nom" required />
             </div>
             <div class="col">
-              <label for="date">Date Limite</label>
+              <label for="date">Date Debut</label>
               <input type="date" class="form-control" id="date" v-model="date" required />
+            </div>
+            <div class="col">
+              <label for="datefin">Date Fin</label>
+              <input type="date" class="form-control" id="datefin" v-model="datefin" required />
             </div>
             <div class="col">
               <label for="projet">Projet</label>
@@ -38,6 +42,7 @@ const route = useRoute();
 
 const nom = ref("");
 const date = ref("");
+const datefin = ref("");
 const projet = ref(null);
 const isEditing = ref(false);
 
@@ -49,6 +54,7 @@ const onSubmit = () => {
       id: parseInt(route.params.id),
       nom: nom.value,
       date: date.value,
+      datefin: datefin.value,
       projet: projet.value
     });
   } else {
@@ -56,6 +62,7 @@ const onSubmit = () => {
       id: Date.now(),
       nom: nom.value,
       date: date.value,
+      datefin: datefin.value,
       projet: projet.value
     });
   }
@@ -69,6 +76,7 @@ watch(() => route.params.id, (newId) => {
     if (foundTache) {
       nom.value = foundTache.nom;
       date.value = foundTache.date;
+      datefin.value = foundTache.datefin;
       projet.value = foundTache.projet;
       isEditing.value = true;
     }
